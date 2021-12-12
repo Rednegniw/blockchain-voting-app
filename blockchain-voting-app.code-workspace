@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "blockchain-voting-app",
+			"path": "."
+		},
+		{
+			"name": "blockchain-voting-app-backend",
+			"path": "../blockchain-voting-app-backend"
+		},
+		{
+			"name": "blockchain-voting-app-contract",
+			"path": "../blockchain-voting-app-contract"
+		}
+	],
+	"settings": {}
+}
