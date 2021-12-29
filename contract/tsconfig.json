@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es2017",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "sourceMap": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "./src/**/*"
+, "../utils/index.ts", "../types/methods.ts"    ],
+    "exclude": [
+        "src/tests/voter-contract.spec.ts"
+    ]
+}

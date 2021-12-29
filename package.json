@@ -1,0 +1,23 @@
+{
+  "name": "blockchain-voting-app",
+  "version": "0.6.0",
+  "description": "Blockchain voting app as part of diploma thesis written by Antonín Wingender.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rednegniw/blockchain-voting-app.git"
+  },
+  "keywords": [
+    "blockchain",
+    "voting"
+  ],
+  "author": "Antonín Wingender",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rednegniw/blockchain-voting-app/issues"
+  },
+  "homepage": "https://github.com/Rednegniw/blockchain-voting-app#readme"
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "next",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "react/display-name": "off",
+    "@next/next/no-img-element": "off",
+    "@next/next/next-script-for-ga": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "import/order": "error",
+    "react/jsx-boolean-value": ["error", "never"],
+    "react/jsx-curly-brace-presence": ["error", "never"],
+    "react/jsx-fragments": ["error", "syntax"],
+    "react/jsx-no-target-blank": ["error"],
+    "react/jsx-sort-props": ["error"],
+    "quotes": ["error", "single"],
+    "react/jsx-no-constructed-context-values": "error",
+    "no-unused-vars": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "object-shorthand": ["error", "properties"],
+    "prefer-template": "error",
+    "template-curly-spacing": ["error", "never"],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "@typescript-eslint/no-unused-vars": ["error"]
+  }
+}
