@@ -65,9 +65,6 @@ export class VoterContract extends Contract {
         return voters;
     }
 
-    // TODO Component diagram, co nejvíc dokumentace
-    // TODO porovnání databázi
-
     /**
      * Creates an election by providing election parameters.
      *

@@ -251,7 +251,6 @@ describe('My Voting Contract testing' , () => {
 
     describe('#queryAll', () => {
         it('should submit queryAll transaction', async () => {
-            // TODO: Update with parameters of transaction
             const response: Buffer = await SmartContractUtil.submitTransaction('VoterContract', 'queryAll', [], gateway);
             const parsedResponse: object[] = decodeAndParse(response);
      
