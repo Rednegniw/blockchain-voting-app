@@ -13,6 +13,13 @@ const ccpPath = path.join(process.cwd(), connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, "utf8");
 const ccp = JSON.parse(ccpJSON);
 
+/**
+ * An abstracted connection to connect to the network and return the
+ * fabric network object.
+ *
+ * @param {string} userName - with what wallet are we signing in? The default is admin.
+ * @return {NetworkObj | ErrorResponse} - Either a network object or an error response.
+ */
 export const connectToNetwork = async (userName: string) => {
   const gateway = new Gateway();
 
@@ -50,12 +57,22 @@ export const connectToNetwork = async (userName: string) => {
   }
 };
 
-export const invoke = async (networkObj: NetworkObj, isQuery: boolean, func: string, args: string[]) => {
+/**
+ * A function to invoke a contract request. It differentiates whether the transaction is
+ * a query or a mutation.
+ *
+ * @param {NetworkObj} networkObj - the fabric network object.
+ * @param {boolean} isQuery - whether it is a query or not.
+ * @param {string} transactionName - the name of the transaction
+ * @param {string[]} args - args in a string array format.
+ * @return {*} 
+ */
+export const invoke = async (networkObj: NetworkObj, isQuery: boolean, transactionName: string, args: string[]) => {
     if (isQuery) {
+      // We evaluate the transaction and get a response if successful
       if (args) {
-        console.log("ARGS:", args);
         let response = await networkObj.contract.evaluateTransaction(
-          func,
+          transactionName,
           ...args
         );
 
@@ -63,7 +80,7 @@ export const invoke = async (networkObj: NetworkObj, isQuery: boolean, func: str
 
         return response;
       } else {
-        let response = await networkObj.contract.evaluateTransaction(func);
+        let response = await networkObj.contract.evaluateTransaction(transactionName);
 
         networkObj.gateway.disconnect();
 
@@ -71,7 +88,7 @@ export const invoke = async (networkObj: NetworkObj, isQuery: boolean, func: str
       }
     } else {
       if (args) {
-        let response = await networkObj.contract.submitTransaction(func, ...args);
+        let response = await networkObj.contract.submitTransaction(transactionName, ...args);
 
         networkObj.gateway.disconnect();
 
@@ -79,11 +96,19 @@ export const invoke = async (networkObj: NetworkObj, isQuery: boolean, func: str
       }
     }
 };
-
+/**
+ * A function to register a new woter, which creates a user wallet in the backend file system.
+ * It registers the new wallet with the Hyperledger Fabric certificate authority.
+ *
+ * @param {string} registrarId - the unique Id of the user (such as an ID number)
+ * @param {string} name - the name of the user.
+ * @return {*} - returns either a success response or an error.
+ */
 export const registerVoter = async (
   registrarId: string,
   name: string,
 ) => {
+  // Some validation
   if (!registrarId || !name) {
     return {
       error: "Error! You need to fill all fields before you can register!"
@@ -91,6 +116,7 @@ export const registerVoter = async (
   }
 
   try {
+    // Creating a new wallet in the filesystem
     const walletPath = path.join(process.cwd(), "wallet");
     const wallet = await Wallets.newFileSystemWallet(walletPath);
 
@@ -146,6 +172,7 @@ export const registerVoter = async (
    
     await wallet.put(registrarId, identity);
 
+    // Send a response if successful
     let response = { data: `Successfully registered voter ${name}. Use voterId ${registrarId} to login above.` };
     return response;
   } catch (error) {

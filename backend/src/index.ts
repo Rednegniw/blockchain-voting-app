@@ -14,10 +14,12 @@ app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(cors());
 
+// Get every asset in the ledger.
 app.get("/queryAll", async (_, res) =>
   contractRequest({ res, isQuery: true, method: "queryAll", args: [] })
 );
 
+// Get the world state for a specific election
 app.get("/getElectionWorldState", async (req, res) =>
   contractRequest({
     res,
@@ -27,15 +29,17 @@ app.get("/getElectionWorldState", async (req, res) =>
   })
 );
 
-app.post("/getCurrentStanding", async (req, res) =>
+// Get the votable items for the current election.
+app.get("/getCurrentStanding", async (req, res) =>
   contractRequest({
     res,
     isQuery: true,
     method: "getVotablesByElectionId",
-    args: [req.body.electionId],
+    args: [req.query.electionId as string],
   })
 );
 
+// Get the election item
 app.get("/getElection", async (req, res) =>
   contractRequest({
     res,
@@ -45,6 +49,7 @@ app.get("/getElection", async (req, res) =>
   })
 );
 
+// Casts a ballot of one voter
 app.post("/castBallot", async (req, res) =>
   contractRequest({
     res,
@@ -54,6 +59,7 @@ app.post("/castBallot", async (req, res) =>
   })
 );
 
+// Creates a new election
 app.post("/createElection", async (req, res) =>
   contractRequest({
     res,
@@ -72,9 +78,11 @@ app.post("/queryWithQueryString", async (req, res) =>
   })
 );
 
+// Registers a new voter
 app.post("/registerVoter", async (req, res) => {
   const { registrarId, name, electionId }: CreateVoterArgs = req.body;
 
+  // Create the user wallet
   let response = await network.registerVoter(registrarId, name);
 
   if (isErrorObj(response)) {
@@ -91,6 +99,7 @@ app.post("/registerVoter", async (req, res) => {
   });
 });
 
+// Validates if voter exists
 app.get("/validateVoter", async (req, res) =>
   contractRequest({
     res,

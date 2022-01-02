@@ -2,7 +2,12 @@ import FabricCAServices from 'fabric-ca-client';
 import { Wallets, X509Identity } from 'fabric-network';
 import path from 'path';
 import { appAdmin, appAdminSecret, orgMSPID, caName } from '../../config.json'
-
+/**
+ * This function is usually run separately to create an admin user wallet
+ * so we can submit transactions.
+ *
+ * @return {*} 
+ */
 async function main() {
   try {
     const certificateAuthority = new FabricCAServices(caName);

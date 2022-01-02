@@ -47,6 +47,19 @@ export const contractRequest = async ({
   }
 };
 
+/**
+ * Similar to contractRequest above, but returns the response back
+ * instead of immediately sending it - if no error is present.
+ *
+ * @param {ContractRequestProps} {
+ *   res, - Express Response Object
+ *   isQuery, - if it is a query or a mutation
+ *   method, - the name of the method
+ *   args = [], - arguments for the transaction as an array of strings
+ *   userName = appAdmin, - the name whose private key we use to sign the transaction
+ * }
+ * @return {*} 
+ */
 export const invokeNetwork = async ({
   res,
   isQuery,
